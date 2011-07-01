@@ -6,7 +6,7 @@ class ElasticSearch {
 
     public $index;
 
-    function __construct($server = 'http://cdev.nokta.com:9200') {
+    function __construct($server = 'http://localhost:9200') {
         $this->server = $server;
     }
 
@@ -44,16 +44,7 @@ class ElasticSearch {
 
     //curl -X PUT http://localhost:9200/{INDEX}/{TYPE}/{ID} -d ...
     function add($type, $id="", $data) {
-        /*return $this->call($type . '/' . $id, array('method' => 'PUT', 'content' => $data));*/
-    	$json = json_encode($data);
-    	if($id!="")
-    		$exec = "curl -XPUT 'http://cdev.nokta.com:9200/".$this->index."/".$type."/".$id."' -d '".$json."'";
-    	else 
-    		$exec = "curl -XPOST 'http://cdev.nokta.com:9200/".$this->index."/".$type."/' -d '".$json."'";
-    	//echo $exec;
-    	$out="";
-    	$return="";
-    	exec($exec,$out,$return);
+        return $this->call($type . '/' . $id, array('method' => 'PUT', 'content' => $data));
     }
 
     //curl -X GET http://localhost:9200/{INDEX}/{TYPE}/_search?q= ...
